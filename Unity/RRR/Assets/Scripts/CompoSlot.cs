@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoonOrbit : MonoBehaviour
-{
-    public float speed = 5f;
 
+
+public class CompoSlot : MonoBehaviour
+{
     // Start is called before the first frame update
     void Start()
     {
@@ -13,9 +13,8 @@ public class MoonOrbit : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        RenderSettings.skybox.SetFloat("_Rotation", Time.time * speed);
-       
+        
     }
 }
