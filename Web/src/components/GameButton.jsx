@@ -1,14 +1,19 @@
 import React from "react";
 import pieces from "../constants/pieces";
 
-const GameButton = ({ type }) => {
+const GameButton = ({ title, index, handleClick, activeSection }) => {
+  const isActive = index === activeSection;
   return (
     <div
       style={{
-        backgroundImage: `../assets/${type}.png`
+        gridArea: Object.keys(pieces)[index],
+        border: "2px solid black"
       }}
+      onClick={() => handleClick(index)}
     >
-      {JSON.stringify(type, null, 2)}
+      {!isActive && activeSection !== null
+        ? JSON.stringify(pieces[title], null, 2)
+        : JSON.stringify(title, null, 2)}
     </div>
   );
 };

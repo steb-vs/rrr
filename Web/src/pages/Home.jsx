@@ -1,10 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { GameContext } from "../contexts/GameProvider";
 
 const Home = () => {
-  const { test } = useContext(GameContext);
-  console.log({ test });
   const [code, setCode] = useState("");
   const { push } = useHistory();
 

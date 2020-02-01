@@ -1,20 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import pieces from "../constants/pieces";
 import GameButton from "./GameButton";
 
-const Menu = () => {
-  const [mainButtons, setMainButtons] = useState(true);
+const piecesTitles = Object.keys(pieces);
 
-  function handleMainClick() {
-    setMainButtons(!mainButtons);
+const Menu = () => {
+  const [activeSection, setActiveSection] = useState(null);
+  // const [selectedIndex, setSelectedIndex] = useState(null);
+  // const [buttons, setButtons] = useState(Object.keys(pieces));
+
+  function handleClick(index) {
+    console.log();
+
+    if (index === activeSection) {
+      setActiveSection(null);
+      console.log("Clear active section ");
+    } else {
+      console.log("New active section ", index);
+      setActiveSection(index);
+    }
+    // const category = Object.keys(pieces)[index];
+    // console.log({ category });
+    // setActiveSection()
+    // setSelectedIndex(index);
+    // setButtons(Object.keys(pieces[category]));
+    // setMainButtons(!mainButtons);
   }
 
-  const buttons = Object.keys(pieces);
   return (
-    <div>
-      {mainButtons &&
-        buttons.map((piece, i) => <GameButton key={i} type={piece} />)}
-    </div>
+    <>
+      {piecesTitles.map((title, i) => {
+        if (i === activeSection)
+          return (
+            <div
+              onClick={() => handleClick(i)}
+              style={{
+                gridArea: title,
+                border: "2px solid black"
+              }}
+            >
+              BACK
+            </div>
+          );
+        return (
+          <GameButton
+            key={i}
+            index={i}
+            title={title}
+            handleClick={handleClick}
+            activeSection={activeSection}
+          />
+        );
+      })}
+    </>
   );
 };
 
