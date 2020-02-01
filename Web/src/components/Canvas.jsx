@@ -2,23 +2,37 @@ import React, { useEffect, useRef, useState } from "react";
 import * as PIXI from "pixi.js";
 
 const Canvas = () => {
-  const canvasRef = useRef(null);
+  const canvasWrapperRef = useRef(null);
   const [app, setApp] = useState(null);
-  // useEffect(() => {
-  //   if (canvasRef.current) {
-  //     setApp(
-  //       new Application({
-  //         width: 800,
-  //         height: 600,
-  //         backgroundColor: 0x10bb99,
-  //         view: canvasRef.current
-  //       })
-  //     );
-  //   }
-  // });
+  useEffect(() => {
+    if (canvasWrapperRef.current) {
+      const canvas = document.getElementById("canvas");
+      const { clientHeight } = canvasWrapperRef.current;
+
+      const pixiApp = new PIXI.Application({
+        autoResize: true,
+        width: window.innerWidth,
+        height: clientHeight,
+        resolution: devicePixelRatio,
+        backgroundColor: 0x10bb99,
+        view: canvas
+      });
+
+      const handleResize = () => {
+        const canvasWrapper = document.getElementById("canvasWrapper");
+        pixiApp.renderer.resize(window.innerWidth, canvasWrapper.clientHeight);
+      };
+      window.onresize = handleResize;
+      setApp(pixiApp);
+    }
+  }, []);
   return (
-    <div style={{ gridArea: "viewer", border: "2px solid black" }}>
-      <canvas ref={canvasRef}></canvas>
+    <div
+      id="canvasWrapper"
+      ref={canvasWrapperRef}
+      style={{ gridArea: "viewer", border: "2px solid black" }}
+    >
+      <canvas id="canvas"></canvas>
     </div>
   );
 };
