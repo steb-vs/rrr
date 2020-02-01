@@ -3,6 +3,8 @@ import React, { Component } from "react";
 
 export const GameContext = React.createContext();
 
+const apiUrl = "http://192.168.16.61:2020";
+
 class GameProvider extends Component {
   constructor(props) {
     super(props);
@@ -16,9 +18,10 @@ class GameProvider extends Component {
         brand: "",
         color: "",
         shape: "",
-        size: ""
+        size: -1
       },
-      updateCurrentPiece: this.updateCurrentPiece
+      updateCurrentPiece: this.updateCurrentPiece,
+      postPiece: this.postPiece
     };
   }
 
@@ -36,6 +39,26 @@ class GameProvider extends Component {
         console.log(this.state.currentPiece);
       }
     );
+  };
+
+  postPiece = () => {
+    const { currentPiece } = this.state;
+    const formattedPiece = {
+      direction: currentPiece.direction,
+      velocity: currentPiece.velocity,
+      properties: {
+        brand: currentPiece.brand,
+        color: currentPiece.color,
+        shape: currentPiece.shape,
+        size: currentPiece.size
+      }
+    };
+    fetch(apiUrl, {
+      method: "post",
+      body: JSON.stringify(formattedPiece) // stringify ?
+    })
+      .then(res => res.json())
+      .then(data => console.log({ data }));
   };
 
   render() {

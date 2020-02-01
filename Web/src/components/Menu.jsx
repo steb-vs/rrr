@@ -1,12 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import pieces from "../constants/pieces";
 import GameButton from "./GameButton";
-import { GameContext } from "../contexts/GameProvider";
 
 const piecesTitles = Object.keys(pieces);
 
 const Menu = () => {
-  const { updateCurrentPiece } = useContext(GameContext);
   const [activeSection, setActiveSection] = useState(null);
   // const [selectedIndex, setSelectedIndex] = useState(null);
   // const [buttons, setButtons] = useState(Object.keys(pieces));
