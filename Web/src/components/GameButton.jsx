@@ -18,16 +18,13 @@ const GameButton = ({
 
   useEffect(() => {
     if (!isActive && activeSection !== null) {
-      console.log({ activeSection });
-
       const activeCategory = Object.keys(pieces)[activeSection];
-      //   console.log({ activeCategory });
 
-      const selectableValue = Object.values(pieces[activeCategory])[index];
-      //   console.log({ selectableValue });
+      const selectableValue = Object.values(pieces[activeCategory])[
+        index > activeSection ? index - 1 : index
+      ];
 
       const keyCategory = activeCategory.slice(0, -1);
-      //   console.log({ keyCategory });
 
       setValue({ selectableValue, keyCategory });
     }

@@ -1,19 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import pieces from "../constants/pieces";
 import GameButton from "./GameButton";
-import { GameContext } from "../contexts/GameProvider";
 
 const piecesTitles = Object.keys(pieces);
 
 const Menu = () => {
-  const { updateCurrentPiece } = useContext(GameContext);
   const [activeSection, setActiveSection] = useState(null);
-  // const [selectedIndex, setSelectedIndex] = useState(null);
-  // const [buttons, setButtons] = useState(Object.keys(pieces));
 
   function handleClick(index, clear) {
-    console.log();
-
     if (index === activeSection || clear) {
       setActiveSection(null);
       console.log("Clear active section ");
@@ -21,13 +15,9 @@ const Menu = () => {
       console.log("New active section ", index);
       setActiveSection(index);
     }
-    // const category = Object.keys(pieces)[index];
-    // console.log({ category });
-    // setActiveSection()
-    // setSelectedIndex(index);
-    // setButtons(Object.keys(pieces[category]));
-    // setMainButtons(!mainButtons);
   }
+
+  console.log({ piecesTitles });
 
   return (
     <>
@@ -35,6 +25,7 @@ const Menu = () => {
         if (i === activeSection)
           return (
             <div
+              key={i}
               onClick={() => handleClick(i)}
               style={{
                 gridArea: title,
