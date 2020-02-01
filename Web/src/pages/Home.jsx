@@ -1,8 +1,19 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { GameContext } from "../contexts/GameProvider";
+import { createUseStyles } from "react-jss";
+
+const useStyle = createUseStyles({
+  input: {
+    width: "90%",
+    height: "2rem",
+    display: "block",
+    margin: "50% auto 0"
+  }
+});
 
 const Home = () => {
+  const classes = useStyle();
   const { test } = useContext(GameContext);
   console.log({ test });
   const [code, setCode] = useState("");
@@ -18,6 +29,7 @@ const Home = () => {
     <div>
       <form onSubmit={e => joinGame(e)}>
         <input
+          className={classes.input}
           type="text"
           value={code}
           onChange={e => setCode(e.target.value)}
