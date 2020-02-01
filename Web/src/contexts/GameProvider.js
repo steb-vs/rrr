@@ -7,9 +7,36 @@ class GameProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: "pouet"
+      currentPiece: {
+        direction: {
+          x: 0.5,
+          y: 0.5
+        },
+        velocity: 15.983,
+        brand: "",
+        color: "",
+        shape: "",
+        size: ""
+      },
+      updateCurrentPiece: this.updateCurrentPiece
     };
   }
+
+  updateCurrentPiece = (key, value) => {
+    this.setState(
+      prevState => {
+        return {
+          currentPiece: {
+            ...prevState.currentPiece,
+            [key]: value
+          }
+        };
+      },
+      () => {
+        console.log(this.state.currentPiece);
+      }
+    );
+  };
 
   render() {
     const { children } = this.props;

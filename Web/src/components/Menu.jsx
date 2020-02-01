@@ -1,17 +1,59 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import pieces from "../constants/pieces";
 import GameButton from "./GameButton";
+import { GameContext } from "../contexts/GameProvider";
+
+const piecesTitles = Object.keys(pieces);
 
 const Menu = () => {
-  const buttons = Object.keys(pieces);
-  console.log(buttons);
+  const { updateCurrentPiece } = useContext(GameContext);
+  const [activeSection, setActiveSection] = useState(null);
+  // const [selectedIndex, setSelectedIndex] = useState(null);
+  // const [buttons, setButtons] = useState(Object.keys(pieces));
+
+  function handleClick(index, clear) {
+    console.log();
+
+    if (index === activeSection || clear) {
+      setActiveSection(null);
+      console.log("Clear active section ");
+    } else {
+      console.log("New active section ", index);
+      setActiveSection(index);
+    }
+    // const category = Object.keys(pieces)[index];
+    // console.log({ category });
+    // setActiveSection()
+    // setSelectedIndex(index);
+    // setButtons(Object.keys(pieces[category]));
+    // setMainButtons(!mainButtons);
+  }
+
   return (
     <>
-      {buttons.map((piece, i) => (
-        <div style={{ gridArea: piece, border: "2px solid black" }}>
-          <GameButton key={i} piece={piece} />
-        </div>
-      ))}
+      {piecesTitles.map((title, i) => {
+        if (i === activeSection)
+          return (
+            <div
+              onClick={() => handleClick(i)}
+              style={{
+                gridArea: title,
+                border: "2px solid black"
+              }}
+            >
+              BACK
+            </div>
+          );
+        return (
+          <GameButton
+            key={i}
+            index={i}
+            title={title}
+            handleClick={handleClick}
+            activeSection={activeSection}
+          />
+        );
+      })}
     </>
   );
 };
