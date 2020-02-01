@@ -33,8 +33,8 @@ Marque de la pièce.
 
 |Langage|Type|
 |-------|----|
-|C#|string|
-|JS|string|
+|C#|enum (*TBD*)|
+|JS|string (*TBD*)|
 
 **properties.color**
 
