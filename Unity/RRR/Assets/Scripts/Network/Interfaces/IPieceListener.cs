@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 public interface IPieceListener
 {
-    event Action<int, PieceParameters> OnPieceReceived;
+    event Action<PieceParameters> OnPieceReceived;
 }
