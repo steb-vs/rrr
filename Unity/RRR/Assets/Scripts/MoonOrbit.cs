@@ -13,8 +13,8 @@ public class MoonOrbit : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        transform.Rotate(0f, speed * Time.fixedDeltaTime, 0f);
     }
 }
