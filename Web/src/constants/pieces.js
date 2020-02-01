@@ -13,5 +13,10 @@ export default {
     durex: "durexBase64",
     lays: "laysBase64",
     ikea: "ikeaBase64"
+  },
+  sizes: {
+    small: 0.6,
+    normal: 1,
+    large: 1.4
   }
 };
