@@ -3,13 +3,17 @@ import pieces from "../constants/pieces";
 import GameButton from "./GameButton";
 
 const Menu = () => {
+  const [mainButtons, setMainButtons] = useState(true);
+
+  function handleMainClick() {
+    setMainButtons(!mainButtons);
+  }
+
   const buttons = Object.keys(pieces);
-  console.log(buttons);
   return (
     <div>
-      {buttons.map((piece, i) => (
-        <GameButton key={i} piece={piece} />
-      ))}
+      {mainButtons &&
+        buttons.map((piece, i) => <GameButton key={i} type={piece} />)}
     </div>
   );
 };
