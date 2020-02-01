@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as PIXI from "pixi.js";
 
+export let pixiApp;
 const Canvas = () => {
   const canvasWrapperRef = useRef(null);
-  const [app, setApp] = useState(null);
   useEffect(() => {
     if (canvasWrapperRef.current) {
       const canvas = document.getElementById("canvas");
       const { clientHeight } = canvasWrapperRef.current;
-
-      const pixiApp = new PIXI.Application({
+      pixiApp = new PIXI.Application({
         autoResize: true,
         width: window.innerWidth,
         height: clientHeight,
@@ -23,7 +22,6 @@ const Canvas = () => {
         pixiApp.renderer.resize(window.innerWidth, canvasWrapper.clientHeight);
       };
       window.onresize = handleResize;
-      setApp(pixiApp);
     }
   }, []);
   return (

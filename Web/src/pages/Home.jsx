@@ -7,8 +7,7 @@ const useStyle = createUseStyles({
   input: {
     width: "90%",
     height: "2rem",
-    display: "block",
-    margin: "50% auto 0"
+    display: "block"
   }
 });
 

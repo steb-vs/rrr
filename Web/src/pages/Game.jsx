@@ -1,5 +1,5 @@
 import React from "react";
-import Canvas from "../components/Canvas";
+import Canvas from "../components/canvas";
 import Menu from "../components/Menu";
 import { createUseStyles } from "react-jss";
 
