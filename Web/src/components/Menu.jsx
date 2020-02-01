@@ -6,11 +6,13 @@ const Menu = () => {
   const buttons = Object.keys(pieces);
   console.log(buttons);
   return (
-    <div>
+    <>
       {buttons.map((piece, i) => (
-        <GameButton key={i} piece={piece} />
+        <div style={{ gridArea: piece, border: "2px solid black" }}>
+          <GameButton key={i} piece={piece} />
+        </div>
       ))}
-    </div>
+    </>
   );
 };
 

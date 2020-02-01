@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
-// import Pixi from "./components/pixi";
 import socketIOClient from "socket.io-client";
 import GameProvider from "./contexts/GameProvider";
 
@@ -13,7 +12,6 @@ function App() {
     const socket = socketIOClient(endpoint);
     socket.on("test", data => console.log({ data }));
   }, []);
-  // Pixi();
 
   return (
     <GameProvider>
