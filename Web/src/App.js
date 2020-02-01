@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Game from "./pages/Game";
 // import Pixi from "./components/pixi";
 import socketIOClient from "socket.io-client";
+import GameProvider from "./contexts/GameProvider";
 
 const endpoint = "http://127.0.0.1:5000";
 
@@ -15,16 +16,18 @@ function App() {
   // Pixi();
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/">
-          <Home />
-        </Route>
-        <Router exact path="/game">
-          <Game />
-        </Router>
-      </Switch>
-    </Router>
+    <GameProvider>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Router exact path="/game">
+            <Game />
+          </Router>
+        </Switch>
+      </Router>
+    </GameProvider>
   );
 }
 
