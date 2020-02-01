@@ -1,12 +1,12 @@
 import React from "react";
 import Canvas from "../components/Canvas";
-import GameButtons from "../components/GameButtons";
+import Menu from "../components/Menu";
 
 const Game = () => {
   return (
     <div>
       <Canvas />
-      <GameButtons />
+      <Menu />
     </div>
   );
 };
