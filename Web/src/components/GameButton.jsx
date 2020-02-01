@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import pieces from "../constants/pieces";
+import config from "../constants/config";
 import { GameContext } from "../contexts/GameProvider";
+
+const reqBrandlogo = require.context("../assets/brands", true, /\.png$/);
 
 const GameButton = ({
   title,
@@ -9,7 +12,8 @@ const GameButton = ({
   activeSection
 }) => {
   const { updateCurrentPiece } = useContext(GameContext);
-  const [value, setValue] = useState({ selectedValue: "", keyCategory: "" });
+  const [value, setValue] = useState({ selectableValue: "", keyCategory: "" });
+
   const isActive = index === activeSection;
 
   useEffect(() => {
@@ -19,22 +23,45 @@ const GameButton = ({
       const activeCategory = Object.keys(pieces)[activeSection];
       //   console.log({ activeCategory });
 
-      const selectedValue = Object.values(pieces[activeCategory])[index];
-      //   console.log({ selectedValue });
+      const selectableValue = Object.values(pieces[activeCategory])[index];
+      //   console.log({ selectableValue });
 
       const keyCategory = activeCategory.slice(0, -1);
       //   console.log({ keyCategory });
 
-      setValue({ selectedValue, keyCategory });
+      setValue({ selectableValue, keyCategory });
     }
   }, [activeSection]);
 
   function handleClick(index) {
     if (!isActive && activeSection !== null) {
-      updateCurrentPiece(value.keyCategory, value.selectedValue);
+      updateCurrentPiece(value.keyCategory, value.selectableValue);
       updateIndex(null, true);
     } else updateIndex(index);
   }
+
+  const renderContent = () => {
+    if (
+      activeSection === config.pieces.brands &&
+      !isActive &&
+      value.selectableValue
+    ) {
+      return (
+        <div
+          style={{
+            backgroundImage: `url(${reqBrandlogo(
+              `./${value.selectableValue}.png`
+            )})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "norepeat",
+            height: "100%",
+            width: "100%"
+          }}
+        ></div>
+      );
+    }
+  };
 
   return (
     <div
@@ -45,7 +72,7 @@ const GameButton = ({
       onClick={() => handleClick(index)}
     >
       {!isActive && activeSection !== null
-        ? value.selectedValue
+        ? renderContent()
         : JSON.stringify(title, null, 2)}
     </div>
   );

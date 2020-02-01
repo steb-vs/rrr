@@ -10,9 +10,9 @@ export default {
     green: "#07c900"
   },
   brands: {
-    durex: "durexBase64",
-    lays: "laysBase64",
-    ikea: "ikeaBase64"
+    durex: "durex",
+    lays: "lays",
+    ikea: "ikea"
   },
   sizes: {
     small: 0.6,

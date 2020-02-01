@@ -16,7 +16,7 @@ class GameProvider extends Component {
         brand: "",
         color: "",
         shape: "",
-        size: ""
+        size: -1
       },
       updateCurrentPiece: this.updateCurrentPiece
     };
