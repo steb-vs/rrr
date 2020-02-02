@@ -1,9 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
+import { createUseStyles } from "react-jss";
 import pieces from "../constants/pieces";
 import config from "../constants/config";
 import { GameContext } from "../contexts/GameProvider";
 
 const reqBrandlogo = require.context("../assets/brands", true, /\.png$/);
+
+const useStyles = createUseStyles({
+  buttonWrapper: {
+    backgroundColor: "blue"
+  }
+});
 
 const GameButton = ({
   title,
@@ -13,6 +20,7 @@ const GameButton = ({
 }) => {
   const { updateCurrentPiece } = useContext(GameContext);
   const [value, setValue] = useState({ selectableValue: "", keyCategory: "" });
+  const classes = useStyles();
 
   const isActive = index === activeSection;
 
@@ -64,11 +72,14 @@ const GameButton = ({
           }}
         ></div>
       );
+    } else {
+      return value.selectableValue;
     }
   };
 
   return (
     <div
+      className={classes.buttonWrapper}
       style={{
         gridArea: Object.keys(pieces)[index],
         border: "2px solid black"
