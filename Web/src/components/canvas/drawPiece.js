@@ -15,6 +15,8 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
   if (pieceProperties.shape === "" && !pieceProperties.shape) return;
   const canvasWidth = pixiApp.screen.width;
   const canvasHeight = pixiApp.screen.height;
+  window.canvasWidth = canvasWidth;
+  window.canvasHeight = canvasHeight;
   const maxSpace = Math.min(canvasWidth, canvasHeight);
   const pieceSize = pieceProperties.size * (maxSpace * basePieceSizeRatio);
 
@@ -62,14 +64,19 @@ const updateLoop = (delta, app) => {
     Math.max((builtSprite.vx -= 0.01 * delta), 0);
   }
 
-  if (builtSprite.y <= app.screen.height - builtSprite.height / 2 - 10) {
+  if (builtSprite.y > app.screen.height - (builtSprite.height / 2 - 10)) {
+    console.log("caca");
+
     builtSprite.vy = -0.1;
   }
   if (
-    builtSprite.x + builtSprite.width / 2 - 15 >= app.screen.width ||
+    builtSprite.x + builtSprite.width / 2 >= app.screen.width ||
     builtSprite.x <= 0
   ) {
     builtSprite.vx = builtSprite.vx * -1;
+  }
+
+  if (builtSprite.y - builtSprite.height / 2 < 0) {
   }
 };
 

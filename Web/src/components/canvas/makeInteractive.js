@@ -16,6 +16,9 @@ function onDragMove(event) {
     const newPosition = this.data.getLocalPosition(this.parent);
     this.x = newPosition.x;
     this.y = newPosition.y;
+    if (this.y + this.height / 2 >= window.canvasHeight) {
+      this.dragging = false;
+    }
 
     console.log("onDragMove", event);
   }
