@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public float score;
+    public float maxScore;
+
     public GameState state;
 
     public event Action<GameState, GameState> OnStateChanged;
@@ -27,6 +29,11 @@ public class GameManager : MonoBehaviour
 
         _init = true;
         SetState(GameState.MainMenu);
+
+        if (score == maxScore)
+        {
+            Debug.Log("It's win ! Make your state Master Esteban");
+        }
     }
 
     public void SetState(GameState newState)
