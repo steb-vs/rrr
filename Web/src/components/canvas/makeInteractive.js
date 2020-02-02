@@ -1,7 +1,14 @@
+let startDragX, startDragY, lastDragTime;
+const speedMutiplier = 3;
+
 function onDragEnd() {
   this.dragging = false;
   this.data = null;
-  console.log("onDragEnd");
+  const deltaT = performance.now() - lastDragTime;
+
+  this.vy = ((this.y - startDragY) / deltaT) * speedMutiplier;
+  this.vx = ((this.x - startDragX) / deltaT) * speedMutiplier;
+  // console.log("onDragEnd", deltaT, dy, dx);
 }
 
 function onDragMove(event) {
@@ -9,16 +16,22 @@ function onDragMove(event) {
     const newPosition = this.data.getLocalPosition(this.parent);
     this.x = newPosition.x;
     this.y = newPosition.y;
+
     console.log("onDragMove", event);
   }
 }
 
 function onDragStart(event) {
+  this.vy = 0;
+  this.vx = 0;
   // store a reference to the data
   // the reason for this is because of multitouch
   // we want to track the movement of this particular touch
   this.data = event.data;
   this.dragging = true;
+  startDragX = this.x;
+  startDragY = this.y;
+  lastDragTime = performance.now();
 
   console.log("onDragStart", event);
 }
