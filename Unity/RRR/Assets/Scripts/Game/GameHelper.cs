@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PieceSize
-{
-    Undefined,
-    Small,
-    Medium,
-    Large
+public class GameHelper
+{ 
+    public static GameManager Manager { get; set; }
 }
