@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PieceSlot : MonoBehaviour
 {
+    public bool testing = false;
+
     public Light myLight;
     public Mesh[] meshes;
     public Texture[] textures;
@@ -16,14 +18,21 @@ public class PieceSlot : MonoBehaviour
     MeshFilter shapeMesh;
     Renderer myMat;
 
+    Transform pieceSlot;
 
     // Start is called before the first frame update
     void Start()
     {
-        brand = (PieceBrand)Random.Range(0, 3);
-        color = (PieceColor)Random.Range(0, 3);
-        shape = (PieceShape)Random.Range(0, 3);
-        size = (PieceSize)Random.Range(0, 3);
+
+        pieceSlot = transform.GetChild(0);
+
+        if (!testing)
+        {
+            brand = (PieceBrand)Random.Range(0, 3);
+            color = (PieceColor)Random.Range(0, 3);
+            shape = (PieceShape)Random.Range(0, 3);
+            size = (PieceSize)Random.Range(0, 3);
+        }
 
         //Change color randomly
         switch (color)
@@ -97,5 +106,35 @@ public class PieceSlot : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "pickable")
+        {
+            if (CompareTo(other.gameObject.GetComponent<PieceComp>()))
+            {
+
+                GameObject piece = other.gameObject;
+                piece.transform.SetParent(transform);
+                piece.transform.localPosition = pieceSlot.transform.localPosition;
+                piece.transform.localRotation = pieceSlot.transform.localRotation;
+                piece.tag = "fixed";
+                piece.GetComponent<BoxCollider>().enabled = false;
+                Debug.Log("Fixed !");
+            }
+        }
+    }
+
+    bool CompareTo(PieceComp piece)
+    {
+        bool result = false;
+
+        if (brand == piece.brand && color == piece.color && size == piece.size && shape == piece.shape)
+        {
+            result = true;
+        }
+
+        return result;
     }
 }
