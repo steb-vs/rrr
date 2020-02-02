@@ -6,6 +6,7 @@ TagManager:
   tags:
   - pickable
   - slot
+  - fixed
   layers:
   - Default
   - TransparentFX

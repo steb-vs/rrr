@@ -23,7 +23,7 @@ public class PieceSlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GameHelper.Manager.maxScore++;
         pieceSlot = transform.GetChild(0);
 
         if (!testing)
@@ -121,7 +121,7 @@ public class PieceSlot : MonoBehaviour
                 piece.transform.localRotation = pieceSlot.transform.localRotation;
                 piece.tag = "fixed";
                 piece.GetComponent<BoxCollider>().enabled = false;
-                Debug.Log("Fixed !");
+                GameHelper.Manager.score++;
             }
         }
     }
