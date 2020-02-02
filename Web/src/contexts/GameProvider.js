@@ -11,7 +11,7 @@ const initialCurrentPiece = {
     y: 0.5
   },
   velocity: 15.983,
-  brand: "",
+  brand: "durex",
   color: "",
   shape: "",
   size: 1

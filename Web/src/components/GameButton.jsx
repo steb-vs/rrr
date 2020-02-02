@@ -21,7 +21,7 @@ const GameButton = ({
   handleClick: updateIndex,
   activeSection
 }) => {
-  const { updateCurrentPiece } = useContext(GameContext);
+  const { updateCurrentPiece, currentPiece } = useContext(GameContext);
   const [value, setValue] = useState({ selectableValue: "", keyCategory: "" });
   const classes = useStyles();
 
@@ -98,7 +98,11 @@ const GameButton = ({
                 backgroundSize: "cover",
                 backgroundRepeat: "norepeat",
                 height: "100%",
-                width: "100%"
+                width: "100%",
+                boxShadow:
+                  currentPiece[value.keyCategory] === value.selectableValue
+                    ? "inset 0 0 20px blue"
+                    : "none"
               }}
             ></div>
           );
@@ -115,7 +119,11 @@ const GameButton = ({
             backgroundSize: "cover",
             backgroundRepeat: "norepeat",
             height: "100%",
-            width: "100%"
+            width: "100%",
+            boxShadow:
+              currentPiece[value.keyCategory] === value.selectableValue
+                ? "inset 0 0 20px blue"
+                : "none"
           }}
         ></div>
       );

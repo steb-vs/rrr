@@ -1,7 +1,13 @@
 import * as PIXI from "pixi.js";
 import { makeInteractive } from "./makeInteractive";
 let builtSprite;
+let builtBrand;
 const reqShapeImg = require.context("../../assets/shapes", true, /\.png$/);
+const reqBrandsShapesImg = require.context(
+  "../../assets/brands-shapes",
+  true,
+  /\.png$/
+);
 
 const basePieceSizeRatio = 0.3;
 
@@ -41,6 +47,32 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
     builtSprite.texture = textures[pieceProperties.shape];
   }
 
+  // Add brand
+  if (pieceProperties.brand !== "" && builtSprite && !builtBrand) {
+    console.log(
+      "brand path",
+      `./${pieceProperties.brand}-${pieceProperties.shape}.png`
+    );
+    builtBrand = PIXI.Sprite.from(
+      PIXI.Texture.from(
+        reqBrandsShapesImg(
+          `./${pieceProperties.brand}-${pieceProperties.shape}.png`
+        )
+      )
+    );
+    builtBrand.anchor.set(0.5);
+    builtBrand.x = builtSprite.x;
+    builtBrand.y = builtSprite.y;
+    builtBrand.zOrder = 1;
+    pixiApp.stage.addChild(builtBrand);
+  } else if (builtBrand) {
+    builtBrand.texture = PIXI.Texture.from(
+      reqBrandsShapesImg(
+        `./${pieceProperties.brand}-${pieceProperties.shape}.png`
+      )
+    );
+  }
+
   if (pieceProperties.color !== "" && !!pieceProperties.color) {
     builtSprite.tint = pieceProperties.color.replace("#", "0x");
   }
@@ -50,12 +82,20 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
     builtSprite.height = pieceSize;
   }
 
+  if (pieceProperties.size !== "" && !!pieceProperties.size && builtBrand) {
+    builtBrand.width = pieceSize;
+    builtBrand.height = pieceSize;
+  }
   console.log("builtSprite", builtSprite);
 };
 
 const updateLoop = (delta, app) => {
   builtSprite.y += builtSprite.vy * delta;
   builtSprite.x += builtSprite.vx * delta;
+  if (builtBrand) {
+    builtBrand.y = builtSprite.y;
+    builtBrand.x = builtSprite.x;
+  }
 
   if (builtSprite.vy > 0) {
     Math.max((builtSprite.vy -= 0.01 * delta), 0);
