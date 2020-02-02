@@ -101,7 +101,7 @@ const GameButton = ({
                 width: "100%",
                 boxShadow:
                   currentPiece[value.keyCategory] === value.selectableValue
-                    ? "inset 0 0 20px #000000"
+                    ? "inset 0 0 20px blue"
                     : "none"
               }}
             ></div>
@@ -122,7 +122,7 @@ const GameButton = ({
             width: "100%",
             boxShadow:
               currentPiece[value.keyCategory] === value.selectableValue
-                ? "inset 0 0 20px #000000"
+                ? "inset 0 0 20px blue"
                 : "none"
           }}
         ></div>

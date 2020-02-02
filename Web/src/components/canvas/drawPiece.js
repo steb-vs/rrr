@@ -1,7 +1,13 @@
 import * as PIXI from "pixi.js";
 import { makeInteractive } from "./makeInteractive";
 let builtSprite;
+let builtBrand;
 const reqShapeImg = require.context("../../assets/shapes", true, /\.png$/);
+const reqBrandsShapesImg = require.context(
+  "../../assets/brands-shapes",
+  true,
+  /\.png$/
+);
 
 const basePieceSizeRatio = 0.3;
 
@@ -32,6 +38,33 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
     pixiApp.stage.addChild(builtSprite);
   } else {
     builtSprite.texture = textures[pieceProperties.shape];
+  }
+
+  // Add brand
+  if (pieceProperties.brand !== "" && builtSprite && !builtBrand) {
+    console.log(
+      " `./${pieceProperties.brand}-${pieceProperties.shape}.png`",
+      `./${pieceProperties.brand}-${pieceProperties.shape}.png`
+    );
+    builtBrand = PIXI.Sprite.from(
+      PIXI.Texture.from(
+        reqBrandsShapesImg(
+          `./${pieceProperties.brand}-${pieceProperties.shape}.png`
+        )
+      )
+    );
+    builtBrand.anchor.set(0.5);
+    builtBrand.x = builtSprite.x;
+    builtBrand.y = builtSprite.y;
+    builtBrand.zOrder = 1;
+  } else if (builtBrand) {
+    builtBrand.texture = PIXI.Sprite.from(
+      PIXI.Texture.from(
+        reqBrandsShapesImg(
+          `./${pieceProperties.brand}-${pieceProperties.shape}.png`
+        )
+      )
+    );
   }
 
   if (pieceProperties.color !== "" && !!pieceProperties.color) {
