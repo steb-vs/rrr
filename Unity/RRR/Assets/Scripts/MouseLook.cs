@@ -12,7 +12,12 @@ public class MouseLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        GameHelper.Manager.OnStateChanged += Manager_OnStateChanged;
+    }
+
+    private void Manager_OnStateChanged(GameState oldState, GameState newState)
+    {
+        Cursor.lockState = newState == GameState.InGame ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
     // Update is called once per frame
@@ -26,5 +31,10 @@ public class MouseLook : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+    }
+
+    private void OnDestroy()
+    {
+        GameHelper.Manager.OnStateChanged -= Manager_OnStateChanged;
     }
 }
