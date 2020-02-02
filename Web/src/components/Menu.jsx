@@ -29,7 +29,8 @@ const Menu = () => {
               onClick={() => handleClick(i)}
               style={{
                 gridArea: title,
-                border: "2px solid black"
+                border: "2px solid black",
+                cursor: "pointer"
               }}
             >
               BACK

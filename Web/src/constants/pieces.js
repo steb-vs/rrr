@@ -1,7 +1,7 @@
 export default {
   shapes: {
     square: "square",
-    triangle: "triangle",
+    cylinder: "cylinder",
     circle: "circle"
   },
   colors: {
