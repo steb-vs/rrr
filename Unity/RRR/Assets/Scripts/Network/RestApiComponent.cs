@@ -27,7 +27,7 @@ public class RestApiComponent : MonoBehaviour, IPieceListener
         {
             { "piece",  BeginHandlePiece },
             { "controller",  SendControllerApp },
-            { "controller/*",  SendControllerAppResource },
+            { "*",  SendControllerAppResource },
         };
 
         _queueLock = new object();
@@ -68,17 +68,25 @@ public class RestApiComponent : MonoBehaviour, IPieceListener
             reader.Close();
 
             resourcePath = ctx.Request.Url.LocalPath.Substring(1);
-            resourcePathRoot = resourcePath.Split('/')[0];
-            ctx.Response.AppendHeader("Access-Control-Allow-Origin", "*");
-
-            if (_handlers.ContainsKey(resourcePath))
-                _handlers[resourcePath]?.Invoke(resourcePath, content, ctx.Response);
-            else
+            if(!string.IsNullOrEmpty(resourcePath))
             {
-                string key = _handlers.Keys.FirstOrDefault(x => x.StartsWith(resourcePathRoot) && x.EndsWith("/*"));
+                if (resourcePath.Contains("/"))
+                    resourcePathRoot = resourcePath.Split('/')[0];
+                else
+                    resourcePathRoot = string.Empty;
+                ctx.Response.AppendHeader("Access-Control-Allow-Origin", "*");
 
-                if(key != null)
-                    _handlers[key]?.Invoke(resourcePath, content, ctx.Response);
+                if (_handlers.ContainsKey(resourcePath))
+                    _handlers[resourcePath]?.Invoke(resourcePath, content, ctx.Response);
+                else
+                {
+                    string key = _handlers.Keys.FirstOrDefault(x => x.StartsWith(resourcePathRoot) && x.EndsWith("/*"));
+
+                    if (key != null)
+                        _handlers[key]?.Invoke(resourcePath, content, ctx.Response);
+                    else if (_handlers.ContainsKey("*"))
+                        _handlers["*"]?.Invoke(resourcePath, content, ctx.Response);
+                }
             }
 
             ctx.Response.Close();
@@ -118,13 +126,11 @@ public class RestApiComponent : MonoBehaviour, IPieceListener
 
     private void SendControllerAppResource(string resourcePath, string body, HttpListenerResponse response)
     {
-        string relPath;
         string rootResPath;
         byte[] data;
 
-        relPath = resourcePath.Replace("controller/", "");
         rootResPath = "ControllerApp/";
-        data = File.ReadAllBytes("./" + rootResPath + relPath);
+        data = File.ReadAllBytes("./" + rootResPath + resourcePath);
         response.ContentLength64 = data.Length;
         response.OutputStream.Write(data, 0, data.Length);
     }
