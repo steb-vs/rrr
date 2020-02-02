@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useContext } from "react";
 import * as PIXI from "pixi.js";
 import { GameContext } from "../../contexts/GameProvider";
-const reqShapeImg = require.context("../../assets/shapes", true, /\.png$/);
+import drawPiece from "./drawPiece";
+// import "./crtOverlay.scss";
 
 export let pixiApp;
 let shape = null;
@@ -32,39 +33,7 @@ const Canvas = () => {
   }, []);
 
   useEffect(() => {
-    if (currentPiece.shape !== "" && !shape) {
-      // const shape = new PIXI.Graphics();
-      // shape.beginFill(0xde3249);
-      // shape.drawRect(50, 50, 100, 100);
-      // shape.endFill();
-      // shape.interactive = true;
-      // shape.buttonMode = true;
-      shape = PIXI.Sprite.from(reqShapeImg(`./${currentPiece.shape}.png`));
-      shape.x = 100;
-      shape.y = 100;
-      shape.width = currentPiece.size * 200;
-      shape.height = currentPiece.size * 200;
-      if (currentPiece.color)
-        shape.tint = currentPiece.color.replace("#", "0x");
-      shape.anchor.set(0.5); // ?
-      shape.interactive = true;
-      shape.buttonMode = true;
-      shape.on("pointerdown", onClick);
-      pixiApp.stage.addChild(shape);
-
-      function onClick() {
-        pixiApp.stage.removeChild(shape);
-        shape = null;
-        postPiece();
-      }
-    }
-    if (currentPiece.color !== "" && shape) {
-      shape.tint = currentPiece.color.replace("#", "0x");
-    }
-    if (shape && shape.width * 200 !== currentPiece.size) {
-      shape.width = currentPiece.size * 200;
-      shape.height = currentPiece.size * 200;
-    }
+    if (pixiApp) drawPiece(currentPiece, pixiApp);
   }, [currentPiece]);
   return (
     <div
@@ -73,6 +42,8 @@ const Canvas = () => {
       style={{ gridArea: "viewer", border: "2px solid black" }}
     >
       <canvas id="canvas"></canvas>
+      <input type="checkbox" id="switch" checked></input>
+      <div className="overlay">AV-1</div>
     </div>
   );
 };
