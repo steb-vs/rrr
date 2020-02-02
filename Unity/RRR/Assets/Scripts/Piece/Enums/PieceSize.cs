@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum PieceSize
 {
+    Undefined,
     Small,
     Medium,
     Large

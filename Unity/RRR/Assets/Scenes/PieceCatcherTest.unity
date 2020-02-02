@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 620816828}
   - component: {fileID: 620816827}
   m_Layer: 0
-  m_Name: RestApiPieceListener
+  m_Name: RestApi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pieceObject: {fileID: 1156869050}
-  spawnRadius: 10
+  spawnRadius: 1
   pieceListenerObject: {fileID: 620816826}
 --- !u!4 &1333218770
 Transform:

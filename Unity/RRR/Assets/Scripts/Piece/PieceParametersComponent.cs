@@ -13,10 +13,10 @@ public class PieceParametersComponent : MonoBehaviour
 
     public void Initialize(PieceParameters parameters)
     {
-        color = parameters.Properties.Color;
-        brand = parameters.Properties.Brand;
-        shape = parameters.Properties.Shape;
-        size = parameters.Properties.Size;
+        color = parameters.Properties.Color ?? PieceColor.Undefined;
+        brand = parameters.Properties.Brand ?? PieceBrand.Undefined;
+        shape = parameters.Properties.Shape ?? PieceShape.Undefined;
+        size = parameters.Properties.Size ?? PieceSize.Undefined;
         direction = parameters.Direction;
         velocity = parameters.Velocity;
     }

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/controller/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/controller/static/js/main.1bedc16c.chunk.js",
+    "main.js.map": "/controller/static/js/main.1bedc16c.chunk.js.map",
+    "runtime-main.js": "/controller/static/js/runtime-main.23b4049a.js",
+    "runtime-main.js.map": "/controller/static/js/runtime-main.23b4049a.js.map",
+    "static/js/2.f7306e8a.chunk.js": "/controller/static/js/2.f7306e8a.chunk.js",
+    "static/js/2.f7306e8a.chunk.js.map": "/controller/static/js/2.f7306e8a.chunk.js.map",
+    "index.html": "/controller/index.html",
+    "precache-manifest.87e373d5788469014e92f66118be5f00.js": "/controller/precache-manifest.87e373d5788469014e92f66118be5f00.js",
+    "service-worker.js": "/controller/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/controller/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.f7306e8a.chunk.js.LICENSE.txt": "/controller/static/js/2.f7306e8a.chunk.js.LICENSE.txt",
+    "static/media/colors.png": "/controller/static/media/colors.bba35f0c.png",
+    "static/media/cylinder.png": "/controller/static/media/cylinder.5b234af3.png",
+    "static/media/durex.png": "/controller/static/media/durex.5ba83098.png",
+    "static/media/ikea.png": "/controller/static/media/ikea.dc2f0b60.png",
+    "static/media/large.png": "/controller/static/media/large.3f24af13.png",
+    "static/media/lays.png": "/controller/static/media/lays.dd36b3dc.png",
+    "static/media/medium.png": "/controller/static/media/medium.5b234af3.png",
+    "static/media/square.png": "/controller/static/media/square.3f24af13.png"
+  },
+  "entrypoints": [
+    "controller/static/js/runtime-main.23b4049a.js",
+    "controller/static/js/2.f7306e8a.chunk.js",
+    "controller/static/css/main.5ecd60fb.chunk.css",
+    "controller/static/js/main.1bedc16c.chunk.js"
+  ]
+}

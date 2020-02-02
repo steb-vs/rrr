@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum PieceBrand
 {
+    Undefined,
     Durex,
     Lays,
     Ikea

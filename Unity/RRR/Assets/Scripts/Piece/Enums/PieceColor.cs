@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum PieceColor
 {
+    Undefined,
     Red,
     Green,
-    Blue,
+    Blue
 }

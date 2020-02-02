@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum PieceShape
 {
+    Undefined,
     Cube,
     Sphere,
     Cylinder
