@@ -9,7 +9,7 @@ const piecesTitles = Object.keys(pieces);
 
 const useStyles = createUseStyles({
   buttonWrapper: {
-    backgroundColor: "blue"
+    // backgroundColor: "blue"
   }
 });
 

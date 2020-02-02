@@ -55,8 +55,8 @@ const Canvas = () => {
       style={{ gridArea: "viewer", border: "2px solid black" }}
     >
       <canvas id="canvas"></canvas>
-      <input type="checkbox" id="switch" checked></input>
-      <div className="overlay">AV-1</div>
+      {/*<input type="checkbox" id="switch" checked></input>*/}
+      {/*<div className="overlay">AV-1</div>*/}
     </div>
   );
 };
