@@ -33,7 +33,12 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
     builtSprite.x = canvasWidth / 2;
     builtSprite.y = canvasHeight / 2;
 
+    builtSprite.vx = 0;
+    builtSprite.vy = 0;
+
     makeInteractive(builtSprite);
+    pixiApp.ticker.add(delta => updateLoop(delta, pixiApp));
+    // pixiApp.ticker.add(physicsLoop);
 
     pixiApp.stage.addChild(builtSprite);
   } else {
@@ -80,6 +85,37 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
     builtBrand.height = pieceSize;
   }
   console.log("builtSprite", builtSprite);
+};
+
+const updateLoop = (delta, app) => {
+  builtSprite.y += builtSprite.vy * delta;
+  builtSprite.x += builtSprite.vx * delta;
+
+  if (builtSprite.vy > 0) {
+    Math.max((builtSprite.vy -= 0.01 * delta), 0);
+  }
+  if (builtSprite.vx > 0) {
+    Math.max((builtSprite.vx -= 0.01 * delta), 0);
+  }
+
+  if (builtSprite.y <= app.screen.height - builtSprite.height / 2 - 10) {
+    builtSprite.vy = -0.1;
+  }
+  if (
+    builtSprite.x + builtSprite.width / 2 - 15 >= app.screen.width ||
+    builtSprite.x <= 0
+  ) {
+    builtSprite.vx = builtSprite.vx * -1;
+  }
+};
+
+let lastPhysicsLoopRun;
+const physicsLoop = delta => {
+  if (!(performance.now() - lastPhysicsLoopRun || 100) > 50) return;
+  builtSprite.lastX = builtSprite.x;
+  builtSprite.lastY = builtSprite.y;
+  lastPhysicsLoopRun = performance.now();
+  console.log("physic");
 };
 
 export default drawPiece;
