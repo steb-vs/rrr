@@ -27,6 +27,8 @@ const GameButton = ({
       const keyCategory = activeCategory.slice(0, -1);
 
       setValue({ selectableValue, keyCategory });
+    } else {
+      setValue({ selectableValue: null, keyCategory: null });
     }
   }, [activeSection]);
 
@@ -34,7 +36,12 @@ const GameButton = ({
     if (!isActive && activeSection !== null) {
       updateCurrentPiece(value.keyCategory, value.selectableValue);
       updateIndex(null, true);
-    } else updateIndex(index);
+      console.log("ici");
+    } else {
+      console.log("la");
+
+      updateIndex(index);
+    }
   }
 
   const renderContent = () => {
