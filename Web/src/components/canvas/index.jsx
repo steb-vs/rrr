@@ -5,7 +5,7 @@ import drawPiece from "./drawPiece";
 // import "./crtOverlay.scss";
 
 export let pixiApp;
-let shape = null;
+let currentShapeName = "";
 
 const Canvas = () => {
   const { currentPiece, postPiece } = useContext(GameContext);
@@ -24,6 +24,10 @@ const Canvas = () => {
         view: canvas
       });
 
+      pixiApp.ticker.add(function(delta) {
+        // console.log(delta);
+      });
+
       const handleResize = () => {
         const canvasWrapper = document.getElementById("canvasWrapper");
         pixiApp.renderer.resize(window.innerWidth, canvasWrapper.clientHeight);
@@ -33,7 +37,14 @@ const Canvas = () => {
   }, []);
 
   useEffect(() => {
-    if (pixiApp) drawPiece(currentPiece, pixiApp);
+    if (pixiApp) {
+      if (currentPiece.shape !== currentShapeName) {
+        drawPiece(currentPiece, pixiApp, true);
+        currentShapeName = currentPiece.shape;
+      } else {
+        drawPiece(currentPiece, pixiApp);
+      }
+    }
   }, [currentPiece]);
   return (
     <div
