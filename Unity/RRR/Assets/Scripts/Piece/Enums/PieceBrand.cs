@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum PieceBrand
 {
-    Michelin,
-    Ferrari,
-    Ford
+    Durex,
+    Lays,
+    Ikea
 }

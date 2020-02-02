@@ -7,5 +7,4 @@ public enum PieceColor
     Red,
     Green,
     Blue,
-    Orange
 }

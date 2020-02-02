@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoonOrbit : MonoBehaviour
 {
-    public int speed = 5;
+    public float speed = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +15,7 @@ public class MoonOrbit : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Rotate(0f, speed * Time.fixedDeltaTime, 0f);
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time * speed);
+       
     }
 }
