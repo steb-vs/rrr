@@ -5,21 +5,23 @@ export const GameContext = React.createContext();
 
 const apiUrl = "http://192.168.16.61:2020";
 
+const initialCurrentPiece = {
+  direction: {
+    x: 0.5,
+    y: 0.5
+  },
+  velocity: 15.983,
+  brand: "",
+  color: "",
+  shape: "",
+  size: -1
+};
+
 class GameProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPiece: {
-        direction: {
-          x: 0.5,
-          y: 0.5
-        },
-        velocity: 15.983,
-        brand: "",
-        color: "",
-        shape: "",
-        size: -1
-      },
+      currentPiece: initialCurrentPiece,
       updateCurrentPiece: this.updateCurrentPiece,
       postPiece: this.postPiece
     };
@@ -59,6 +61,7 @@ class GameProvider extends Component {
     })
       .then(res => res.json())
       .then(data => console.log({ data }));
+    this.setState({ currentPiece: initialCurrentPiece });
   };
 
   render() {
