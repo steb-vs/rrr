@@ -33,7 +33,6 @@ const Canvas = () => {
 
   useEffect(() => {
     if (currentPiece.shape !== "" && !shape) {
-      console.log("CREATE SHAPE ", currentPiece.shape);
       // const shape = new PIXI.Graphics();
       // shape.beginFill(0xde3249);
       // shape.drawRect(50, 50, 100, 100);
@@ -41,8 +40,13 @@ const Canvas = () => {
       // shape.interactive = true;
       // shape.buttonMode = true;
       shape = PIXI.Sprite.from(reqShapeImg(`./${currentPiece.shape}.png`));
-      shape.x = 50;
-      shape.y = 50;
+      shape.x = 100;
+      shape.y = 100;
+      shape.width = currentPiece.size * 200;
+      shape.height = currentPiece.size * 200;
+      if (currentPiece.color)
+        shape.tint = currentPiece.color.replace("#", "0x");
+      shape.anchor.set(0.5); // ?
       shape.interactive = true;
       shape.buttonMode = true;
       shape.on("pointerdown", onClick);
@@ -53,6 +57,13 @@ const Canvas = () => {
         shape = null;
         postPiece();
       }
+    }
+    if (currentPiece.color !== "" && shape) {
+      shape.tint = currentPiece.color.replace("#", "0x");
+    }
+    if (shape && shape.width * 200 !== currentPiece.size) {
+      shape.width = currentPiece.size * 200;
+      shape.height = currentPiece.size * 200;
     }
   }, [currentPiece]);
   return (

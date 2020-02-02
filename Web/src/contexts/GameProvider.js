@@ -14,7 +14,7 @@ const initialCurrentPiece = {
   brand: "",
   color: "",
   shape: "",
-  size: -1
+  size: 1 // default medium
 };
 
 class GameProvider extends Component {
