@@ -11,7 +11,7 @@ const reqCategoryImg = require.context("../assets/categories", true, /\.png$/);
 
 const useStyles = createUseStyles({
   buttonWrapper: {
-    backgroundColor: "blue"
+    backgroundColor: "black"
   }
 });
 
