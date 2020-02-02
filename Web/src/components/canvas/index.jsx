@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useContext } from "react";
 import * as PIXI from "pixi.js";
 import { GameContext } from "../../contexts/GameProvider";
 import drawPiece from "./drawPiece";
+import createBackground from "./starBackground";
 // import "./crtOverlay.scss";
 
 export let pixiApp;
-let shape = null;
 
 const Canvas = () => {
   const { currentPiece, postPiece } = useContext(GameContext);
@@ -20,9 +20,10 @@ const Canvas = () => {
         width: window.innerWidth,
         height: clientHeight,
         resolution: devicePixelRatio,
-        backgroundColor: 0x10bb99,
+        // backgroundColor: 0x10bb99,
         view: canvas
       });
+      createBackground(pixiApp);
 
       const handleResize = () => {
         const canvasWrapper = document.getElementById("canvasWrapper");
