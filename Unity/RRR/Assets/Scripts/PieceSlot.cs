@@ -77,13 +77,13 @@ public class PieceSlot : MonoBehaviour
         switch (size)
         {
             case PieceSize.Small:
-                transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+                transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                 break;
             case PieceSize.Medium:
-                transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 break;
             case PieceSize.Large:
-                transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+                transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
                 break;
             default:
                 transform.localScale = new Vector3(1f, 1f, 1f);
