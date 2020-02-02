@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PieceSlot : MonoBehaviour
+public class PieceComp : MonoBehaviour
 {
     public Light myLight;
     public Mesh[] meshes;
@@ -20,10 +20,6 @@ public class PieceSlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        brand = (PieceBrand)Random.Range(0, 3);
-        color = (PieceColor)Random.Range(0, 3);
-        shape = (PieceShape)Random.Range(0, 3);
-        size = (PieceSize)Random.Range(0, 3);
 
         //Change color randomly
         switch (color)

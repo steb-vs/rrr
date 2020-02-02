@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public float walkSpeed;
-    public float runSpeed;
     [SerializeField]
     private float speed;
 
