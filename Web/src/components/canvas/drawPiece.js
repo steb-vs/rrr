@@ -43,7 +43,7 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
   // Add brand
   if (pieceProperties.brand !== "" && builtSprite && !builtBrand) {
     console.log(
-      " `./${pieceProperties.brand}-${pieceProperties.shape}.png`",
+      "brand path",
       `./${pieceProperties.brand}-${pieceProperties.shape}.png`
     );
     builtBrand = PIXI.Sprite.from(
@@ -57,12 +57,11 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
     builtBrand.x = builtSprite.x;
     builtBrand.y = builtSprite.y;
     builtBrand.zOrder = 1;
+    pixiApp.stage.addChild(builtBrand);
   } else if (builtBrand) {
-    builtBrand.texture = PIXI.Sprite.from(
-      PIXI.Texture.from(
-        reqBrandsShapesImg(
-          `./${pieceProperties.brand}-${pieceProperties.shape}.png`
-        )
+    builtBrand.texture = PIXI.Texture.from(
+      reqBrandsShapesImg(
+        `./${pieceProperties.brand}-${pieceProperties.shape}.png`
       )
     );
   }
@@ -76,6 +75,10 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
     builtSprite.height = pieceSize;
   }
 
+  if (pieceProperties.size !== "" && !!pieceProperties.size && builtBrand) {
+    builtBrand.width = pieceSize;
+    builtBrand.height = pieceSize;
+  }
   console.log("builtSprite", builtSprite);
 };
 
