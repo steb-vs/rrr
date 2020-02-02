@@ -17,7 +17,7 @@ public class PieceThrowerComponent : MonoBehaviour
         pieceListener.OnPieceReceived += PieceListener_OnPieceReceived;
     }
 
-    private void PieceListener_OnPieceReceived(int emitterId, PieceParameters parameters)
+    private void PieceListener_OnPieceReceived(PieceParameters parameters)
     {
         GameObject pieceClone;
         PieceParametersComponent pieceParameters;
