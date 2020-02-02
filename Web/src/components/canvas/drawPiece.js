@@ -90,6 +90,10 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
 const updateLoop = (delta, app) => {
   builtSprite.y += builtSprite.vy * delta;
   builtSprite.x += builtSprite.vx * delta;
+  if (builtBrand) {
+    builtBrand.y = builtSprite.y;
+    builtBrand.x = builtSprite.x;
+  }
 
   if (builtSprite.vy > 0) {
     Math.max((builtSprite.vy -= 0.01 * delta), 0);
