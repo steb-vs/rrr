@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useContext } from "react";
 import * as PIXI from "pixi.js";
 import { GameContext } from "../../contexts/GameProvider";
-import drawPiece from "./drawPiece";
+import drawPiece, { updateLoop } from "./drawPiece";
 import createBackground from "./starBackground";
 // import "./crtOverlay.scss";
 
@@ -25,10 +25,7 @@ const Canvas = () => {
         view: canvas
       });
       createBackground(pixiApp);
-
-      pixiApp.ticker.add(function(delta) {
-        // console.log(delta);
-      });
+      pixiApp.ticker.add(delta => updateLoop(delta, pixiApp, postPiece));
 
       const handleResize = () => {
         const canvasWrapper = document.getElementById("canvasWrapper");
@@ -41,10 +38,10 @@ const Canvas = () => {
   useEffect(() => {
     if (pixiApp) {
       if (currentPiece.shape !== currentShapeName) {
-        drawPiece(currentPiece, pixiApp, true);
+        drawPiece(currentPiece, pixiApp, true, postPiece);
         currentShapeName = currentPiece.shape;
       } else {
-        drawPiece(currentPiece, pixiApp);
+        drawPiece(currentPiece, pixiApp, false, postPiece);
       }
     }
   }, [currentPiece]);

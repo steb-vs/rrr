@@ -1,14 +1,14 @@
 import * as PIXI from "pixi.js";
 import star from "../../assets/star.png";
 
-export default function createBackground(pixiApp) {
+export default function createBackground(pixiApp, justSent) {
   // Get the texture for rope.
   const starTexture = PIXI.Texture.from(star);
 
   const starAmount = 1000;
   let cameraZ = 0;
   const fov = 20;
-  const baseSpeed = 0.025;
+  const baseSpeed = 0.05;
   let speed = 0;
   let warpSpeed = 0;
   const starStretch = 5;
@@ -42,6 +42,12 @@ export default function createBackground(pixiApp) {
     star.y = Math.sin(deg) * distance;
   }
 
+  window.addEventListener("justSent", () => {
+    console.log("Hyperrr vitesse");
+
+    warpSpeed = 1;
+    setTimeout(() => (warpSpeed = 0), 500);
+  });
   // Change flight speed every 5 seconds
   //   setInterval(() => {
   //     warpSpeed = warpSpeed > 0 ? 0 : 1;

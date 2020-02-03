@@ -19,6 +19,9 @@ function onDragMove(event) {
     if (this.y + this.height / 2 >= window.canvasHeight) {
       this.dragging = false;
     }
+    if (this.y - this.height / 2 < 0) {
+      this.dragging = false;
+    }
 
     console.log("onDragMove", event);
   }

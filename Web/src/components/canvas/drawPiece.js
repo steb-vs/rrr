@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import { makeInteractive } from "./makeInteractive";
+import { initialCurrentPiece } from "../../contexts/GameProvider";
 let builtSprite;
 let builtBrand;
 const reqShapeImg = require.context("../../assets/shapes", true, /\.png$/);
@@ -17,7 +18,7 @@ const textures = {
   square: PIXI.Texture.from(reqShapeImg("./square.png"))
 };
 
-const drawPiece = (pieceProperties, pixiApp, clear) => {
+const drawPiece = (pieceProperties, pixiApp, clear, postPiece) => {
   if (pieceProperties.shape === "" && !pieceProperties.shape) return;
   const canvasWidth = pixiApp.screen.width;
   const canvasHeight = pixiApp.screen.height;
@@ -27,22 +28,13 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
   const pieceSize = pieceProperties.size * (maxSpace * basePieceSizeRatio);
 
   if (!builtSprite) {
-    builtSprite = PIXI.Sprite.from(textures[pieceProperties.shape]);
-    builtSprite.anchor.set(0.5);
-    builtSprite.interactive = true;
-    builtSprite.buttonMode = true;
-
-    builtSprite.x = canvasWidth / 2;
-    builtSprite.y = canvasHeight / 2;
-
-    builtSprite.vx = 0;
-    builtSprite.vy = 0;
-
-    makeInteractive(builtSprite);
-    pixiApp.ticker.add(delta => updateLoop(delta, pixiApp));
-    // pixiApp.ticker.add(physicsLoop);
-
-    pixiApp.stage.addChild(builtSprite);
+    initSprite({
+      canvasWidth,
+      canvasHeight,
+      pixiApp,
+      postPiece,
+      pieceProperties
+    });
   } else {
     builtSprite.texture = textures[pieceProperties.shape];
   }
@@ -89,7 +81,8 @@ const drawPiece = (pieceProperties, pixiApp, clear) => {
   console.log("builtSprite", builtSprite);
 };
 
-const updateLoop = (delta, app) => {
+export const updateLoop = (delta, app, postPiece) => {
+  if (!builtSprite) return;
   builtSprite.y += builtSprite.vy * delta;
   builtSprite.x += builtSprite.vx * delta;
   if (builtBrand) {
@@ -116,17 +109,60 @@ const updateLoop = (delta, app) => {
     builtSprite.vx = builtSprite.vx * -1;
   }
 
-  if (builtSprite.y - builtSprite.height / 2 < 0) {
+  if (builtSprite.y + builtSprite.height / 2 < 0) {
+    console.log("asas", builtSprite.vx, builtSprite.vy);
+    postPiece({
+      x: builtSprite.vx,
+      y: builtSprite.vy,
+      velocity: Math.max(builtSprite.vx, builtSprite.vy)
+    });
+    app.stage.removeChild(builtSprite);
+    app.stage.removeChild(builtBrand);
+
+    initSprite({
+      canvasWidth: app.screen.height,
+      canvasHeight: app.screen.height,
+      pixiApp: app,
+      postPiece,
+      pieceProperties: initialCurrentPiece
+    });
+    builtBrand.x = window.canvasWidth / 2;
+    builtBrand.y = window.canvasHeight / 2;
+
+    builtSprite.x = window.canvasWidth / 2;
+    builtSprite.y = window.canvasHeight / 2;
+    builtSprite.vy = 0;
+    builtSprite.vx = 0;
+    builtSprite = null;
+    builtBrand = null;
   }
 };
 
-let lastPhysicsLoopRun;
-const physicsLoop = delta => {
-  if (!(performance.now() - lastPhysicsLoopRun || 100) > 50) return;
-  builtSprite.lastX = builtSprite.x;
-  builtSprite.lastY = builtSprite.y;
-  lastPhysicsLoopRun = performance.now();
-  console.log("physic");
+const initSprite = ({
+  canvasWidth,
+  canvasHeight,
+  pixiApp,
+  postPiece,
+  pieceProperties
+}) => {
+  if (pieceProperties.shape === "" || !pieceProperties.shape) return;
+  console.log(pieceProperties.shape);
+  builtSprite = PIXI.Sprite.from(textures[pieceProperties.shape]);
+
+  builtSprite.anchor.set(0.5);
+  builtSprite.interactive = true;
+  builtSprite.buttonMode = true;
+
+  builtSprite.x = canvasWidth / 2;
+  builtSprite.y = canvasHeight / 2;
+
+  builtSprite.vx = 0;
+  builtSprite.vy = 0;
+
+  makeInteractive(builtSprite);
+  // pixiApp.ticker.add(physicsLoop);
+
+  pixiApp.stage.addChild(builtSprite);
 };
 
 export default drawPiece;

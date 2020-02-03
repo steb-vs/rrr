@@ -5,7 +5,7 @@ export const GameContext = React.createContext();
 
 const apiUrl = "http://192.168.16.61:2020/piece";
 
-const initialCurrentPiece = {
+export const initialCurrentPiece = {
   direction: {
     x: 0.5,
     y: 0.5
@@ -43,11 +43,12 @@ class GameProvider extends Component {
     );
   };
 
-  postPiece = () => {
+  postPiece = ({ x, y, velocity }) => {
+    console.log("Sent", { x, y, velocity });
+
+    const justSent = new Event("justSent");
+    window.dispatchEvent(justSent);
     const { currentPiece } = this.state;
-    let rdmXDir = Math.floor(Math.random() * 2);
-    let rdmX = Math.random() * 0.5;
-    rdmXDir === 1 ? (rdmX *= 1) : (rdmX *= -1);
     let size;
     switch (currentPiece.size) {
       case 0.6: {
@@ -90,10 +91,10 @@ class GameProvider extends Component {
       // direction: currentPiece.direction,
       // velocity: currentPiece.velocity,
       direction: {
-        x: rdmX,
-        y: Math.random() * 1
+        x,
+        y
       },
-      velocity: Math.random() * 1,
+      velocity,
       properties: {
         brand: currentPiece.brand === "" ? null : currentPiece.brand,
         color,
@@ -108,7 +109,7 @@ class GameProvider extends Component {
     });
     // .then(res => res.json())
     // .then(data => console.log({ data }));
-    this.setState({ currentPiece: initialCurrentPiece });
+    this.setState({ currentPiece: { ...initialCurrentPiece } });
   };
 
   render() {
