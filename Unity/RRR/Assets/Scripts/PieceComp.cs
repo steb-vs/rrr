@@ -20,21 +20,26 @@ public class PieceComp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myMat = GetComponent<Renderer>();
 
         //Change color randomly
         switch (color)
         {
             case PieceColor.Red:
                 myLight.color = Color.red;
+                myMat.material.SetColor("_EmissionColor", Color.red);
                 break;
             case PieceColor.Green:
                 myLight.color = Color.green;
+                myMat.material.SetColor("_EmissionColor", Color.green);
                 break;
             case PieceColor.Blue:
                 myLight.color = Color.blue;
+                myMat.material.SetColor("_EmissionColor", Color.blue);
                 break;
             default:
                 myLight.color = Color.black;
+                myMat.material.SetColor("_EmissionColor", Color.black);
                 break;
         }
 
@@ -54,7 +59,6 @@ public class PieceComp : MonoBehaviour
                 shapeMesh.mesh = meshes[0];
                 break;
         }
-        myMat = GetComponent<Renderer>();
         switch (brand)
         {
             case PieceBrand.Durex:

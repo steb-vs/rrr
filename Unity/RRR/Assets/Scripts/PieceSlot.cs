@@ -25,13 +25,15 @@ public class PieceSlot : MonoBehaviour
     {
         GameHelper.Manager.maxScore++;
         pieceSlot = transform.GetChild(0);
+        shapeMesh = GetComponent<MeshFilter>();
+        myMat = GetComponent<Renderer>();
 
         if (!testing)
         {
-            brand = (PieceBrand)Random.Range(0, 3);
-            color = (PieceColor)Random.Range(0, 3);
-            shape = (PieceShape)Random.Range(0, 3);
-            size = (PieceSize)Random.Range(0, 3);
+            brand = (PieceBrand)Random.Range(1, 4);
+            color = (PieceColor)Random.Range(1, 4);
+            shape = (PieceShape)Random.Range(1, 4);
+            size = (PieceSize)Random.Range(1, 4);
         }
 
         //Change color randomly
@@ -39,19 +41,22 @@ public class PieceSlot : MonoBehaviour
         {
             case PieceColor.Red:
                 myLight.color = Color.red;
+                myMat.material.SetColor("_EmissionColor", Color.red);
                 break;
             case PieceColor.Green:
                 myLight.color = Color.green;
+                myMat.material.SetColor("_EmissionColor", Color.green);
                 break;
             case PieceColor.Blue:
                 myLight.color = Color.blue;
+                myMat.material.SetColor("_EmissionColor", Color.blue);
                 break;
             default:
                 myLight.color = Color.black;
+                myMat.material.SetColor("_EmissionColor", Color.black);
                 break;
         }
 
-        shapeMesh = GetComponent<MeshFilter>();
         switch (shape)
         {
             case PieceShape.Cube:
@@ -67,7 +72,6 @@ public class PieceSlot : MonoBehaviour
                 shapeMesh.mesh = meshes[0];
                 break;
         }
-        myMat = GetComponent<Renderer>();
         switch (brand)
         {
             case PieceBrand.Durex:
@@ -134,7 +138,7 @@ public class PieceSlot : MonoBehaviour
         {
             result = true;
         }
-
+        Debug.Log(result);
         return result;
     }
 }

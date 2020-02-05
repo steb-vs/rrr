@@ -41,10 +41,10 @@ public class FakePieceListenerComponent : MonoBehaviour, IPieceListener
             Velocity = velocity,
             Properties = new PieceProperties
             {
-                Brand = Utils.Random<PieceBrand>(),
-                Color = Utils.Random<PieceColor>(),
-                Shape = Utils.Random<PieceShape>(),
-                Size = Utils.Random<PieceSize>()
+                Brand = (PieceBrand)UnityEngine.Random.Range(1, 4),
+                Color = (PieceColor)UnityEngine.Random.Range(1, 4),
+                Shape = (PieceShape)UnityEngine.Random.Range(1, 4),
+                Size = (PieceSize)UnityEngine.Random.Range(1, 4)
             }
         };
 

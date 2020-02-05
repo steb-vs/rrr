@@ -26,7 +26,7 @@ public class PlayerGrab : MonoBehaviour
 
         Debug.DrawRay(cam.transform.position, cam.transform.forward, Color.green);
 
-        if (pieceComp && grabbing && Input.GetButtonDown("Grab") && pieceComp.tag != "fixed")
+        if ((grabbing && Input.GetButtonDown("Grab")) || pieceComp?.tag == "fixed")
         {
             releaseGrab();
         }
@@ -56,6 +56,7 @@ public class PlayerGrab : MonoBehaviour
         pieceComp.GetComponent<Rigidbody>().useGravity = false;
         pieceComp.GetComponent<BoxCollider>().isTrigger = true;
         pieceComp.transform.localPosition = Vector3.zero;
+        Debug.Log("Grab");
     }
 
     void Grabbing()
@@ -65,7 +66,8 @@ public class PlayerGrab : MonoBehaviour
     void releaseGrab()
     {
         //pieceComp.GetComponent<Collider>().enabled = true;
-        pieceComp.GetComponent<Rigidbody>().useGravity = true;
+        if(pieceComp?.tag != "fixed")
+            pieceComp.GetComponent<Rigidbody>().useGravity = true;
         pieceComp.GetComponent<Rigidbody>().isKinematic = false;
         pieceComp.GetComponent<BoxCollider>().isTrigger = false;
         pieceComp.transform.SetParent(null);
